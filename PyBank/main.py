@@ -1,20 +1,35 @@
-#1. The total number of months included in the dataset
-#2. The net total amount of "Profit/Losses" over the entire period
-#3. The average of the changes in "Profit/Losses" over the entire period
-#4. The greatest increase in profits (date and amount) over the entire period
-#5. The greatest decrease in losses (date and amount) over the entire period
+import os
+import csv
 
-#1. For the total number of months, we will need to tell the computer to count the number of rows 
-#that we have
+csvpath = os.path.join('budget_data_real.csv')
 
-#2. For the net total of profit/losses, we will have to go through each row, locate the profit/loss
-#value, and add it to the amount(declared variable) that is keeping track of the total
+with open(csvpath, newline='') as csvfile:
 
-#3. Every time we go through a row, we will take the difference betwee the next day and the 
-#last day. We will then average all these day-to-day changes.
+    csvreader = csv.reader(csvfile, delimiter=',')
 
-#4. We will search through all the rows of the sheet and locate the row cntaining the highest
-#value of profit (the date and the amount)
+    header = next(csvreader)
 
-#5. We will search through all the rows of the sheet and locate the row cntaining the highest
-#value of loss (the date and the amount)
+    total_rows = []
+    total_money = []
+    total_money_change = []
+
+
+    for row in csvreader:
+        total_rows.append(row[0])
+        total_money.append(float(row[1]))
+    print("Financial Analysis")
+    print("Total Months: " + str(len(total_rows)))
+    print("Total: $" + str(sum(total_money)))
+
+    for n in range(1, len(total_money)):
+        total_money_change.append(total_money[n] - total_money[n-1])
+        average_change = sum(total_money_change)/len(total_money_change)
+        greatest_total_money_change = max(total_money_change)
+        lossiest_total_money_change = min(total_money_change)
+        #convert to strings with the date
+        greatest_total_money_change_index = str(total_rows[total_money.index(max(total_money))])
+        lossiest_total_money_change_index = str(total_rows[total_money.index(min(total_money))])
+
+    print("Average Change $" + str(round(average_change, 2)))
+    print("Greatest Increase in Profits: " + str(greatest_total_money_change_index) + "($ " + str(greatest_total_money_change) + ")")
+    print("Greatest Decrease in Profits: " + str(lossiest_total_money_change_index) + "($ " + str(lossiest_total_money_change) + ")")
