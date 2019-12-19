@@ -30,6 +30,25 @@ with open(csvpath, newline='') as csvfile:
         greatest_total_money_change_index = str(total_rows[total_money.index(max(total_money))])
         lossiest_total_money_change_index = str(total_rows[total_money.index(min(total_money))])
 
-    print("Average Change $" + str(round(average_change, 2)))
+    print("Average Change: $" + str(round(average_change, 2)))
     print("Greatest Increase in Profits: " + str(greatest_total_money_change_index) + "($ " + str(greatest_total_money_change) + ")")
     print("Greatest Decrease in Profits: " + str(lossiest_total_money_change_index) + "($ " + str(lossiest_total_money_change) + ")")
+
+
+output_path = os.path.join("PyBank_output.csv")
+
+with open(output_path, 'w', newline='') as new_csvfile:
+
+    csvwriter = csv.writer(new_csvfile, delimiter=',')
+
+    csvwriter.writerow(["Financial Analysis"])
+
+    csvwriter.writerow(["Total Months", str(len(total_rows))])
+
+    csvwriter.writerow(["Total: ", "$ " + str(sum(total_money))])
+
+    csvwriter.writerow(["Average Change", "$ " + str(round(average_change, 2))])
+
+    csvwriter.writerow(["Greatest Increase in Profits ", str(greatest_total_money_change_index), "$ " + str(greatest_total_money_change)])
+
+    csvwriter.writerow(["Greatest Decrease in Profits ", str(lossiest_total_money_change_index), "$ " + str(lossiest_total_money_change)])
