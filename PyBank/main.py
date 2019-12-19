@@ -33,7 +33,7 @@ with open(csvpath, newline='') as csvfile:
     print("Average Change: $" + str(round(average_change, 2)))
     print("Greatest Increase in Profits: " + str(greatest_total_money_change_index) + "($ " + str(greatest_total_money_change) + ")")
     print("Greatest Decrease in Profits: " + str(lossiest_total_money_change_index) + "($ " + str(lossiest_total_money_change) + ")")
-
+#could use f strings here
 
 output_path = os.path.join("PyBank_output.csv")
 
