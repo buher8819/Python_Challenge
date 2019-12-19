@@ -1,17 +1,48 @@
-#1. The total number of votes cast
-#2. A complete list of candidates who received votes
-#3. The percentage of votes each candidate won
-#4. The total number of votes each candidate won
-#5. The winner of the election based on popular vote
+import os
+import csv
 
-#1. We need to tell the computer to go through and count all the rows (votes) that
-#are present.
+csvpath = os.path.join("election_data.csv")
+#votes are a number and we can store candidate names in a list
+total_votes = 0
+unique_candidates = []
+votes_for_candidates = []
 
-#2. Go through all the rows, and store all the unique values for the candidates (we want all
-# the candidates names, but only output them one time).
+with open(csvpath, newline = '') as csvfile:
+    csvreader = csv.reader(csvfile, delimiter = ',')
 
-#3. and 4. Find all the votes that pertain to each candidate and take those values and divide
-#them by the total number of votes (which we should already have).
+    header = next(csvreader)
 
-#5. Identify the candidate that has the highest percentage (or number) of the total votes (popular
-# vote) and assign that candidate name as the winner.
+    for row in csvreader:
+        total_votes += 1
+
+        candidate_column = row[2]
+
+        if candidate_column not in unique_candidates:
+            unique_candidates.append(candidate_column)
+            votes_for_candidates.append(1)
+        else:
+            candidate_spot = unique_candidates.index(candidate_column)
+            votes_for_candidates[candidate_spot] = votes_for_candidates[candidate_spot] + 1
+
+percentage_list = []
+votes_max = votes_for_candidates[0]
+spot_max = 0
+
+for i in range(len(unique_candidates)):
+    percentage_votes = round(votes_for_candidates[i] / total_votes * 100, 2)
+    percentage_list.append(percentage_votes)
+
+    if votes_for_candidates[i] > votes_max:
+        votes_max = votes_for_candidates[i]
+        spot_max = i
+
+poll_winner = unique_candidates[spot_max]
+
+print("Election Results")
+print("-----------------")
+print("Total Votes: " + str(total_votes))
+print("-----------------")
+print(f'{unique_candidates[i]} : {percentage_list[i]}% ({votes_for_candidates[i]})')
+print("-----------------")
+print(f'Election Winner: {poll_winner.upper()}')
+print("-----------------")
