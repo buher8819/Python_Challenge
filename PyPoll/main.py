@@ -38,6 +38,7 @@ for i in range(len(unique_candidates)):
         votes_max = votes_for_candidates[i]
         spot_max = i
 
+#we need to pick the winner from the list we have created (the candidate that has the highest number value associated with it)
 poll_winner = unique_candidates[spot_max]
 
 #print("Election Results")
@@ -46,7 +47,7 @@ poll_winner = unique_candidates[spot_max]
 #print("-----------------")
 #print(f'{unique_candidates[i]} : {percentage_list[i]}% ({votes_for_candidates[i]})')
 #print("-----------------")
-#print(f'Election Winner: {poll_winner.upper()}')
+#print(f'Election Winner: {poll_winner()}')
 #print("-----------------")
 #This works but will only print the last candidate in the list, therefore needs a for loop to execute print for each candidate stored in the list
 
@@ -57,7 +58,7 @@ print("-----------------")
 for i in range(len(unique_candidates)):
     print(f'{unique_candidates[i]} : {percentage_list[i]}% ({votes_for_candidates[i]})')
 print("-----------------")
-print(f'Election Winner: {poll_winner.upper()}')
+print(f'Election Winner: {poll_winner}')
 print("-----------------")
 
 #write the output to a csv file
@@ -73,4 +74,4 @@ with open(output_path, 'w', newline='') as new_csvfile:
     for i in range(len(unique_candidates)):
         csvwriter.writerow([f'{unique_candidates[i]} :', f'{percentage_list[i]}% ({votes_for_candidates[i]})'])
 
-    csvwriter.writerow(["Election Winner: ", str(poll_winner.upper())])
+    csvwriter.writerow(["Election Winner: ", str(poll_winner)])
