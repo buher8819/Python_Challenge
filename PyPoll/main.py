@@ -47,7 +47,7 @@ poll_winner = unique_candidates[spot_max]
 #print("-----------------")
 #print(f'{unique_candidates[i]} : {percentage_list[i]}% ({votes_for_candidates[i]})')
 #print("-----------------")
-#print(f'Election Winner: {poll_winner()}')
+#print(f'Election Winner: {poll_winner}')
 #print("-----------------")
 #This works but will only print the last candidate in the list, therefore needs a for loop to execute print for each candidate stored in the list
 
